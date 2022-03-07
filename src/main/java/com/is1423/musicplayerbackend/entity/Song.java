@@ -1,12 +1,16 @@
 package com.is1423.musicplayerbackend.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "song")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Song {
 
     @Id
