@@ -1,7 +1,7 @@
-package com.is1423.MusicPlayerBackend.controller;
+package com.is1423.musicplayerbackend.controller;
 
-import com.is1423.MusicPlayerBackend.model.response.AdvertisementResponseDto;
-import com.is1423.MusicPlayerBackend.service.AdvertisementService;
+import com.is1423.musicplayerbackend.model.response.AdvertisementResponseDTO;
+import com.is1423.musicplayerbackend.service.AdvertisementService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +18,7 @@ public class AdvertisementController {
     private final AdvertisementService service;
 
     @GetMapping("/get-all-advertisements")
-    public ResponseEntity<?> getAllAdvertisements(){
-        List<AdvertisementResponseDto> advertisements = service.getAllAdvertisements();
-        return ResponseEntity.ok(advertisements);
+    public ResponseEntity<List<AdvertisementResponseDTO>> getAllAdvertisements(){
+        return ResponseEntity.ok(service.getAllAdvertisements());
     }
 }

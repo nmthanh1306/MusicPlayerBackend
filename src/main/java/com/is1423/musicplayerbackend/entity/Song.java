@@ -1,4 +1,4 @@
-package com.is1423.MusicPlayerBackend.entity;
+package com.is1423.musicplayerbackend.entity;
 
 import lombok.Data;
 

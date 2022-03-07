@@ -1,6 +1,4 @@
-package com.is1423.MusicPlayerBackend.entity;
-
-import lombok.Data;
+package com.is1423.musicplayerbackend.entity;
 
 import javax.persistence.*;
 

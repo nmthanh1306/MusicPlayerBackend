@@ -1,4 +1,4 @@
-package com.is1423.MusicPlayerBackend.model;
+package com.is1423.musicplayerbackend.mapper;
 
 import java.util.List;
 

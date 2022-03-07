@@ -1,4 +1,4 @@
-package com.is1423.MusicPlayerBackend;
+package com.is1423.musicplayerbackend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

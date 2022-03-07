@@ -1,4 +1,4 @@
-package com.is1423.MusicPlayerBackend.entity;
+package com.is1423.musicplayerbackend.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,7 +19,7 @@ public class Advertisement {
     private Long advertisementId;
 
     @Column(name = "song_id")
-    private String songId;
+    private Long songId;
 
     @Column(name = "advertisement_image")
     private String advertisementImage;

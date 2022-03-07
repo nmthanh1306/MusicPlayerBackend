@@ -1,12 +1,15 @@
-package com.is1423.MusicPlayerBackend.entity;
+package com.is1423.musicplayerbackend.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
-@Table(name = "play_list")
+@Table(name = "playlist")
 @Data
 public class PlayList {
 
@@ -15,7 +18,7 @@ public class PlayList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long playlistId;
 
-    @Column(name = "play_list_name")
+    @Column(name = "playlist_name")
     private String playListName;
 
     @Column(name = "playlist_image")
