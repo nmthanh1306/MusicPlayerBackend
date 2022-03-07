@@ -19,7 +19,7 @@ public class PlaylistServiceImpl implements PlaylistService {
     private final PlaylistRepository repository;
 
     @Override
-    public List<PlaylistResponseDTO> getAllPlaylists() {
-        return mapper.toDtoList(repository.findAll());
+    public List<PlaylistResponseDTO> getPlaylistsWasRandom() {
+        return mapper.toDtoList(repository.random3PlaylistPerOneDay());
     }
 }

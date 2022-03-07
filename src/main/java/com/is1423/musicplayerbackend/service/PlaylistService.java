@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface PlaylistService {
 
-    List<PlaylistResponseDTO> getAllPlaylists();
+    List<PlaylistResponseDTO> getPlaylistsWasRandom();
 
 }
