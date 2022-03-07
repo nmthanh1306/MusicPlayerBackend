@@ -17,7 +17,7 @@ public class PlaylistController {
 
     private final PlaylistService service;
 
-    @GetMapping("/get-all-playlist")
+    @GetMapping("/get3-playlist-random")
     public ResponseEntity<List<PlaylistResponseDTO>> getAllPlaylists(){
         return ResponseEntity.ok(service.getPlaylistsWasRandom());
     }
