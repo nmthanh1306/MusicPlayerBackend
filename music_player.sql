@@ -35,8 +35,8 @@ USE `id18532788_music_player`;
 
 DROP TABLE IF EXISTS `advertisement`;
 CREATE TABLE `advertisement` (
-  `advertisement_id` int(11) NOT NULL,
-  `song_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `advertisement_id` bigint NOT NULL,
+  `song_id` bigint(255) COLLATE utf8_unicode_ci NOT NULL,
   `advertisement_image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `advertisement_content` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -46,9 +46,9 @@ CREATE TABLE `advertisement` (
 --
 
 INSERT INTO `advertisement` (`advertisement_id`, `song_id`, `advertisement_image`, `advertisement_content`) VALUES
-(1, '4', 'https://sp22-music-player.000webhostapp.com/Image/Advertisement/ads-nguoi-toi-yeu-lanh-lung.jpg', 'Giai điệu mang đậm chất của Mr.Siro'),
-(2, '9', 'https://sp22-music-player.000webhostapp.com/Image/Advertisement/ads-ngay-dau-tien-duc-phuc-700.jpg', 'Cùng với giọng ca của Đức Phúc và giai điệu lãng mạn'),
-(3, '10', 'https://sp22-music-player.000webhostapp.com/Image/Advertisement/ads-chay-ve-khoc-voi-anh.jpg', '');
+(1, 4, 'https://sp22-music-player.000webhostapp.com/Image/Advertisement/ads-nguoi-toi-yeu-lanh-lung.jpg', 'Giai điệu mang đậm chất của Mr.Siro'),
+(2, 9, 'https://sp22-music-player.000webhostapp.com/Image/Advertisement/ads-ngay-dau-tien-duc-phuc-700.jpg', 'Cùng với giọng ca của Đức Phúc và giai điệu lãng mạn'),
+(3, 10, 'https://sp22-music-player.000webhostapp.com/Image/Advertisement/ads-chay-ve-khoc-voi-anh.jpg', '');
 
 -- --------------------------------------------------------
 
@@ -60,7 +60,7 @@ INSERT INTO `advertisement` (`advertisement_id`, `song_id`, `advertisement_image
 
 DROP TABLE IF EXISTS `album`;
 CREATE TABLE `album` (
-  `album_id` int(11) NOT NULL,
+  `album_id` bigint NOT NULL,
   `album_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `album_singer` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `album_image` varchar(255) COLLATE utf8_unicode_ci NOT NULL
@@ -87,7 +87,7 @@ INSERT INTO `album` (`album_id`, `album_name`, `album_singer`, `album_image`) VA
 
 DROP TABLE IF EXISTS `music_theme`;
 CREATE TABLE `music_theme` (
-  `theme_id` int(11) NOT NULL,
+  `theme_id` bigint NOT NULL,
   `theme_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `theme_image` varchar(255) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -115,7 +115,7 @@ INSERT INTO `music_theme` (`theme_id`, `theme_name`, `theme_image`) VALUES
 
 DROP TABLE IF EXISTS `playlist`;
 CREATE TABLE `playlist` (
-  `playlist_id` int(11) NOT NULL,
+  `playlist_id` bigint NOT NULL,
   `playlist_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `playlist_image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `playlist_icon` varchar(255) COLLATE utf8_unicode_ci NOT NULL
@@ -141,7 +141,7 @@ INSERT INTO `playlist` (`playlist_id`, `playlist_name`, `playlist_image`, `playl
 
 DROP TABLE IF EXISTS `song`;
 CREATE TABLE `song` (
-  `song_id` int(11) NOT NULL,
+  `song_id` bigint NOT NULL,
   `album_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `type_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `playlist_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -185,7 +185,7 @@ INSERT INTO `song` (`song_id`, `album_id`, `type_id`, `playlist_id`, `song_image
 
 DROP TABLE IF EXISTS `type`;
 CREATE TABLE `type` (
-  `type_id` int(11) NOT NULL,
+  `type_id` bigint NOT NULL,
   `theme_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `type_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `type_image` varchar(255) COLLATE utf8_unicode_ci NOT NULL
