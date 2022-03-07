@@ -7,5 +7,4 @@ import com.is1423.musicplayerbackend.model.response.MusicThemeResponseDTO;
 @Mapper(componentModel = "spring")
 public interface MusicThemeMapper extends EntityMapper<MusicThemeResponseDTO, MusicTheme> {
 
-
 }

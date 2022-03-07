@@ -5,8 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.is1423.musicplayerbackend.model.response.TypeResponseDTO;
-import com.is1423.musicplayerbackend.service.TypeService;
+import com.is1423.musicplayerbackend.model.response.MusicThemeResponseDTO;
+import com.is1423.musicplayerbackend.service.MusicThemeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,12 +16,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MusicThemeController {
 
-    private final TypeService service;
+    private final MusicThemeService service;
 
     @GetMapping(value = {"", "/"})
-    public ResponseEntity<List<TypeResponseDTO>> get4TypeByDay() {
+    public ResponseEntity<List<MusicThemeResponseDTO>> get4TypeByDay() {
         log.debug("--- execute method get4TypeByDay: Start ---");
-        List<TypeResponseDTO> result = service.getTypeRandom();
+        List<MusicThemeResponseDTO> result = service.getMusicThemeRandom();
         log.debug("--- execute method get4TypeByDay: End ---");
         return ResponseEntity.ok(result);
     }
