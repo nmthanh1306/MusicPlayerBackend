@@ -18,12 +18,11 @@ public class TypeController {
 
     private final TypeService service;
 
-
     @GetMapping(value = {"", "/"})
-    public ResponseEntity<List<TypeResponseDTO>> get4TypePerDay() {
-        log.debug("--- excute method get4MusicThemeByDay: Start ---");
+    public ResponseEntity<List<TypeResponseDTO>> get4TypeByDay() {
+        log.debug("--- excute method get4TypeByDay: Start ---");
         List<TypeResponseDTO> result = service.getTypeRandom();
-        log.debug("--- excute method get4MusicThemeByDay: End ---");
+        log.debug("--- excute method get4TypeByDay: End ---");
         return ResponseEntity.ok(result);
     }
 
