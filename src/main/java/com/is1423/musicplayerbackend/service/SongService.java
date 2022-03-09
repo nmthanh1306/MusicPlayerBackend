@@ -13,4 +13,10 @@ public interface SongService {
 
     List<SongResponseDTO> getByAlbumId(Long albumId);
 
+    List<SongResponseDTO> getByName(String name);
+
+
+
+
+
 }

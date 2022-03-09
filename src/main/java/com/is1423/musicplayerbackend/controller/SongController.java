@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.is1423.musicplayerbackend.model.response.SongResponseDTO;
 import com.is1423.musicplayerbackend.service.SongService;
@@ -48,6 +49,14 @@ public class SongController {
     public ResponseEntity<List<SongResponseDTO>> getSongByAlbum(@PathVariable @Positive Long id) {
         log.debug("--- execute method getSongByAlbum: Start ---");
         List<SongResponseDTO> result = service.getByAlbumId(id);
+        log.debug("--- execute method getSongByAlbum: End ---");
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping(value = { "", "/"})
+    public ResponseEntity<List<SongResponseDTO>> getSongName(@RequestParam(name = "name") String name) {
+        log.debug("--- execute method getSongByAlbum: Start ---");
+        List<SongResponseDTO> result = service.getByName(name);
         log.debug("--- execute method getSongByAlbum: End ---");
         return ResponseEntity.ok(result);
     }

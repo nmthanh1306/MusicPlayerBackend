@@ -35,4 +35,9 @@ public class SongServiceImpl implements SongService {
         return mapper.toDtoList(repository.getByAlbumId(albumId));
     }
 
+    @Override
+    public List<SongResponseDTO> getByName(String name) {
+        return mapper.toDtoList(repository.findBySongNameContains(name));
+    }
+
 }

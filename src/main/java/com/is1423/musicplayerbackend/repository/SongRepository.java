@@ -7,17 +7,18 @@ import com.is1423.musicplayerbackend.entity.Song;
 
 public interface SongRepository extends JpaRepository<Song, Long> {
 
-    @Query(value = "SELECT  * FROM song ORDER BY favourite DESC LIMIT 5",nativeQuery = true)
+    @Query(value = "SELECT * FROM song ORDER BY favourite DESC LIMIT 5", nativeQuery = true)
     List<Song> get5FavoriteSong();
 
-
-    @Query(value = "SELECT  * FROM song WHERE FIND_IN_SET(?1, playlist_id)",nativeQuery = true)
+    @Query(value = "SELECT * FROM song WHERE FIND_IN_SET(?1, playlist_id)", nativeQuery = true)
     List<Song> getByPlayListId(Long playListId);
 
-    @Query(value = "SELECT  * FROM song WHERE FIND_IN_SET(?1, type_id)",nativeQuery = true)
+    @Query(value = "SELECT * FROM song WHERE FIND_IN_SET(?1, type_id)", nativeQuery = true)
     List<Song> getByTypeId(Long typeId);
 
-    @Query(value = "SELECT  * FROM song WHERE FIND_IN_SET(?1, album_id)",nativeQuery = true)
+    @Query(value = "SELECT * FROM song WHERE FIND_IN_SET(?1, album_id)", nativeQuery = true)
     List<Song> getByAlbumId(Long albumId);
+
+    List<Song> findBySongNameContains(String name);
 
 }
