@@ -22,4 +22,9 @@ public class PlaylistServiceImpl implements PlaylistService {
     public List<PlaylistResponseDTO> getPlaylistsWasRandom() {
         return mapper.toDtoList(repository.random3PlaylistPerOneDay());
     }
+
+    @Override
+    public List<PlaylistResponseDTO> getAll() {
+        return mapper.toDtoList(repository.findAll());
+    }
 }

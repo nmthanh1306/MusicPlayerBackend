@@ -8,9 +8,7 @@ import java.util.List;
 
 public interface PlaylistRepository extends JpaRepository<PlayList, Long> {
 
-    @Override
-    List<PlayList> findAll();
-
     @Query(value = "select distinct * from playlist order by rand(CURRENT_DATE) limit 3",nativeQuery = true)
     List<PlayList> random3PlaylistPerOneDay();
+
 }

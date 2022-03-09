@@ -8,4 +8,6 @@ public interface PlaylistService {
 
     List<PlaylistResponseDTO> getPlaylistsWasRandom();
 
+    List<PlaylistResponseDTO> getAll();
+
 }
