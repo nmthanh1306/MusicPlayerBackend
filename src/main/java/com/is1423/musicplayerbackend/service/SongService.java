@@ -9,4 +9,6 @@ public interface SongService {
 
     List<SongResponseDTO> getByPlayListId(Long playlistId);
 
+    List<SongResponseDTO> getByTypeId(Long typeId);
+
 }

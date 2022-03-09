@@ -36,4 +36,12 @@ public class SongController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping(value = { "/type/{id}", "/type/{id}/"})
+    public ResponseEntity<List<SongResponseDTO>> getSongByType(@PathVariable @Positive Long id) {
+        log.debug("--- execute method getSongByType: Start ---");
+        List<SongResponseDTO> result = service.getByTypeId(id);
+        log.debug("--- execute method getSongByType: End ---");
+        return ResponseEntity.ok(result);
+    }
+
 }

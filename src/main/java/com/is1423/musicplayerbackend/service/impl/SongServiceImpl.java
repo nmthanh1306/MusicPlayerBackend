@@ -22,7 +22,12 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public List<SongResponseDTO> getByPlayListId(Long playlistId) {
-        return mapper.toDtoList(repository.getByIdPlayList(playlistId));
+        return mapper.toDtoList(repository.getByPlayListId(playlistId));
+    }
+
+    @Override
+    public List<SongResponseDTO> getByTypeId(Long typeId) {
+        return mapper.toDtoList(repository.getByTypeId(typeId));
     }
 
 }
