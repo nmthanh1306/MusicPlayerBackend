@@ -44,4 +44,12 @@ public class SongController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping(value = { "/album/{id}", "/album/{id}/"})
+    public ResponseEntity<List<SongResponseDTO>> getSongByAlbum(@PathVariable @Positive Long id) {
+        log.debug("--- execute method getSongByAlbum: Start ---");
+        List<SongResponseDTO> result = service.getByAlbumId(id);
+        log.debug("--- execute method getSongByAlbum: End ---");
+        return ResponseEntity.ok(result);
+    }
+
 }

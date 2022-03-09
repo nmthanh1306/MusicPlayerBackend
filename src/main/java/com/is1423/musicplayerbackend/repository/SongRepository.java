@@ -17,4 +17,7 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     @Query(value = "SELECT  * FROM song WHERE FIND_IN_SET(?1, type_id)",nativeQuery = true)
     List<Song> getByTypeId(Long typeId);
 
+    @Query(value = "SELECT  * FROM song WHERE FIND_IN_SET(?1, album_id)",nativeQuery = true)
+    List<Song> getByAlbumId(Long albumId);
+
 }

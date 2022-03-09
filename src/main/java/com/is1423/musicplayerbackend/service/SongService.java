@@ -11,4 +11,6 @@ public interface SongService {
 
     List<SongResponseDTO> getByTypeId(Long typeId);
 
+    List<SongResponseDTO> getByAlbumId(Long albumId);
+
 }
