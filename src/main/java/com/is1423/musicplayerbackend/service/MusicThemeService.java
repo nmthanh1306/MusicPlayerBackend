@@ -6,4 +6,6 @@ import com.is1423.musicplayerbackend.model.response.MusicThemeResponseDTO;
 public interface MusicThemeService {
 
     List<MusicThemeResponseDTO> getMusicThemeRandom();
+
+    List<MusicThemeResponseDTO> getAll();
 }

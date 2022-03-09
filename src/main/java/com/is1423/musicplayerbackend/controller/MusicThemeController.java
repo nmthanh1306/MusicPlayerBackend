@@ -18,11 +18,20 @@ public class MusicThemeController {
 
     private final MusicThemeService service;
 
-    @GetMapping(value = {"", "/"})
+    @GetMapping(value = {"/random", "/random/"})
     public ResponseEntity<List<MusicThemeResponseDTO>> get4MusicThemeByDay() {
         log.debug("--- execute method get4MusicThemeByDay: Start ---");
         List<MusicThemeResponseDTO> result = service.getMusicThemeRandom();
         log.debug("--- execute method get4MusicThemeByDay: End ---");
+        return ResponseEntity.ok(result);
+    }
+
+
+    @GetMapping(value = {"", "/"})
+    public ResponseEntity<List<MusicThemeResponseDTO>> getAll() {
+        log.debug("--- execute method getAll music theme: Start ---");
+        List<MusicThemeResponseDTO> result = service.getAll();
+        log.debug("--- execute method getAll music theme: End ---");
         return ResponseEntity.ok(result);
     }
 

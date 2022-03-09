@@ -21,5 +21,10 @@ public class MusicThemeServiceImpl implements MusicThemeService {
         return mapper.toDtoList(repository.random4MusicThemePerOneDay());
     }
 
+    @Override
+    public List<MusicThemeResponseDTO> getAll() {
+        return mapper.toDtoList(repository.findAll());
+    }
+
 
 }
