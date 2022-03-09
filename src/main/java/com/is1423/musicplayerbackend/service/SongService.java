@@ -7,4 +7,6 @@ public interface SongService {
 
     List<SongResponseDTO> getListFavouriteSong();
 
+    List<SongResponseDTO> getByPlayListId(Long playlistId);
+
 }

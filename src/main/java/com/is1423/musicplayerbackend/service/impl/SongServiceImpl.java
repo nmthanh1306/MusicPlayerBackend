@@ -20,4 +20,9 @@ public class SongServiceImpl implements SongService {
         return mapper.toDtoList(repository.get5FavoriteSong());
     }
 
+    @Override
+    public List<SongResponseDTO> getByPlayListId(Long playlistId) {
+        return mapper.toDtoList(repository.getByIdPlayList(playlistId));
+    }
+
 }

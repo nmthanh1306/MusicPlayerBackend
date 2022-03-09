@@ -1,8 +1,10 @@
 package com.is1423.musicplayerbackend.controller;
 
 import java.util.List;
+import javax.validation.constraints.Positive;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.is1423.musicplayerbackend.model.response.SongResponseDTO;
@@ -23,6 +25,14 @@ public class SongController {
         log.debug("--- execute method getTop5FavoriteSong: Start ---");
         List<SongResponseDTO> result = service.getListFavouriteSong();
         log.debug("--- execute method getTop5FavoriteSong: End ---");
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping(value = { "/playlist/{id}", "/playlist/{id}/"})
+    public ResponseEntity<List<SongResponseDTO>> getSongByPlayList(@PathVariable @Positive Long id) {
+        log.debug("--- execute method getSongByPlayList: Start ---");
+        List<SongResponseDTO> result = service.getByPlayListId(id);
+        log.debug("--- execute method getSongByPlayList: End ---");
         return ResponseEntity.ok(result);
     }
 
