@@ -17,10 +17,19 @@ import lombok.extern.slf4j.Slf4j;
 public class AlbumController {
 
     private final AlbumService service;
-    @GetMapping(value = {"","/"})
+
+    @GetMapping(value = {"/random", "/random/"})
     public ResponseEntity<List<AlbumResponseDTO>> get4AlbumByDay() {
         log.debug("--- execute method get4AlbumByDay: Start ---");
         List<AlbumResponseDTO> result = service.getAlbumRandom();
+        log.debug("--- execute method get4AlbumByDay: End ---");
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping(value = {"","/"})
+    public ResponseEntity<List<AlbumResponseDTO>> getAll() {
+        log.debug("--- execute method get4AlbumByDay: Start ---");
+        List<AlbumResponseDTO> result = service.getAll();
         log.debug("--- execute method get4AlbumByDay: End ---");
         return ResponseEntity.ok(result);
     }

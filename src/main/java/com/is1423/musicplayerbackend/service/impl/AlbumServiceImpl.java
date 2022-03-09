@@ -20,5 +20,10 @@ public class AlbumServiceImpl implements AlbumService {
         return mapper.toDtoList(repository.random4AlbumPerOneDay());
     }
 
+    @Override
+    public List<AlbumResponseDTO> getAll() {
+        return mapper.toDtoList(repository.findAll());
+    }
+
 
 }

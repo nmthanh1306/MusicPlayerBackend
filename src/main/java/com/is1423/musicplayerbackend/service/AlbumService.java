@@ -7,4 +7,6 @@ public interface AlbumService {
 
     List<AlbumResponseDTO> getAlbumRandom();
 
+    List<AlbumResponseDTO> getAll();
+
 }
