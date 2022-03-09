@@ -7,4 +7,6 @@ public interface TypeService {
 
     List<TypeResponseDTO> getTypeRandom();
 
+    TypeResponseDTO getDetail(Long id);
+
 }
