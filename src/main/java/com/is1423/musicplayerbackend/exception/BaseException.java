@@ -5,13 +5,13 @@ import lombok.Data;
 @Data
 public abstract class BaseException extends RuntimeException {
 
-    private String entityName;
+    private final String entityName;
 
-    private String title;
+    private final String title;
 
-    private String errorKey;
+    private final String errorKey;
 
-    public BaseException(String entityName, String title, String errorKey) {
+    protected BaseException(String entityName, String title, String errorKey) {
         super();
         this.entityName = entityName;
         this.title = title;

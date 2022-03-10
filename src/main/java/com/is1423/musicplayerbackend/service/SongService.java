@@ -15,6 +15,8 @@ public interface SongService {
 
     List<SongResponseDTO> getSongByNameOrAuthor(String name);
 
+    SongResponseDTO updateFavouriteSong(Long songId);
+
 
 
 

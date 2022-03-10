@@ -3,6 +3,10 @@ package com.is1423.musicplayerbackend.service.impl;
 import java.util.List;
 import java.util.Objects;
 import org.springframework.stereotype.Service;
+import com.is1423.musicplayerbackend.entity.Song;
+import com.is1423.musicplayerbackend.exception.EntityNameConstant;
+import com.is1423.musicplayerbackend.exception.MessageKeyConstant;
+import com.is1423.musicplayerbackend.exception.ResourceNotFoundException;
 import com.is1423.musicplayerbackend.mapper.SongMapper;
 import com.is1423.musicplayerbackend.model.response.SongResponseDTO;
 import com.is1423.musicplayerbackend.repository.SongRepository;
@@ -15,6 +19,8 @@ public class SongServiceImpl implements SongService {
 
     private final SongRepository repository;
     private final SongMapper mapper;
+
+    private static final int DEFAULT_INCREASE_FAVOURITE = 1;
 
     @Override
     public List<SongResponseDTO> getListFavouriteSong() {
@@ -42,6 +48,14 @@ public class SongServiceImpl implements SongService {
             return mapper.toDtoList(repository.findAll());
         }
         return mapper.toDtoList(repository.findBySongNameContains(text));
+    }
+
+    @Override
+    public SongResponseDTO updateFavouriteSong(Long songId) {
+        Song song = repository.findById(songId)
+            .orElseThrow(() -> new ResourceNotFoundException(EntityNameConstant.SONG, MessageKeyConstant.NOT_FOUND, songId.toString()));
+        song.setFavourite(song.getFavourite() + DEFAULT_INCREASE_FAVOURITE);
+        return mapper.toDto(repository.save(song));
     }
 
 }
