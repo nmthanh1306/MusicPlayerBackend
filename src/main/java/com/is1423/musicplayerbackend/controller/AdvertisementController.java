@@ -3,10 +3,7 @@ package com.is1423.musicplayerbackend.controller;
 import java.util.List;
 import javax.validation.constraints.Positive;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.is1423.musicplayerbackend.model.response.AdvertisementResponseDTO;
 import com.is1423.musicplayerbackend.model.response.SongResponseDTO;
 import com.is1423.musicplayerbackend.service.AdvertisementService;
@@ -29,10 +26,10 @@ public class AdvertisementController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/{adversitementId}")
-    public ResponseEntity<SongResponseDTO> getSongByAdvertisement(@PathVariable @Positive Long adversitementId) {
+    @GetMapping("/{advertisementId}")
+    public ResponseEntity<SongResponseDTO> getSongByAdvertisement(@PathVariable @Positive Long advertisementId) {
         log.debug("--- execute method getSongByAdvertisement: Start ---");
-        SongResponseDTO result = service.getSongByAdvertisement(adversitementId);
+        SongResponseDTO result = service.getSongByAdvertisement(advertisementId);
         log.debug("--- execute method getSongByAdvertisement: End ---");
         return ResponseEntity.ok(result);
     }
