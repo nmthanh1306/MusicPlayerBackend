@@ -1,6 +1,7 @@
 package com.is1423.musicplayerbackend.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 import org.springframework.stereotype.Service;
 import com.is1423.musicplayerbackend.mapper.SongMapper;
 import com.is1423.musicplayerbackend.model.response.SongResponseDTO;
@@ -36,8 +37,11 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public List<SongResponseDTO> getByName(String name) {
-        return mapper.toDtoList(repository.findBySongNameContains(name));
+    public List<SongResponseDTO> getSongByNameOrAuthor(String text) {
+        if (Objects.isNull(text) || text.length() == 0) {
+            return mapper.toDtoList(repository.findAll());
+        }
+        return mapper.toDtoList(repository.findBySongNameContains(text));
     }
 
 }

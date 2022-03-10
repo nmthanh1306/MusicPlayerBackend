@@ -54,10 +54,10 @@ public class SongController {
     }
 
     @GetMapping(value = { "", "/"})
-    public ResponseEntity<List<SongResponseDTO>> getSongName(@RequestParam(name = "name") String name) {
-        log.debug("--- execute method getSongByAlbum: Start ---");
-        List<SongResponseDTO> result = service.getByName(name);
-        log.debug("--- execute method getSongByAlbum: End ---");
+    public ResponseEntity<List<SongResponseDTO>> getSongByNameOrAuthor(@RequestParam(name = "name", required = false) String name) {
+        log.debug("--- execute method getSongByNameOrAuthor: Start ---");
+        List<SongResponseDTO> result = service.getSongByNameOrAuthor(name);
+        log.debug("--- execute method getSongByNameOrAuthor: End ---");
         return ResponseEntity.ok(result);
     }
 
