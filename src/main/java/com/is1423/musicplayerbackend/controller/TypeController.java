@@ -37,4 +37,12 @@ public class TypeController {
         return ResponseEntity.ok(result);
     }
 
+    @GetMapping(value = {"/theme/{id}", "/theme/{id}/"})
+    public ResponseEntity<List<TypeResponseDTO>> getTypeByThemeId(@PathVariable @Positive Long id) {
+        log.debug("--- excute method getTypeByThemeId: Start ---");
+        List<TypeResponseDTO> result = service.getTypeByThemeId(id);
+        log.debug("--- excute method getTypeByThemeId: End ---");
+        return ResponseEntity.ok(result);
+    }
+
 }

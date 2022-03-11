@@ -12,4 +12,6 @@ public interface TypeRepository extends JpaRepository<Type, Long> {
     @Query(value = "select distinct * from type order by rand(CURRENT_DATE) limit 4",nativeQuery = true)
     List<Type> random4TypePerOneDay();
 
+    List<Type> findAllByThemeId(Long themeId);
+
 }

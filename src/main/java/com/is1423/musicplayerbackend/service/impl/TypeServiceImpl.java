@@ -26,6 +26,12 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
+    public List<TypeResponseDTO> getTypeByThemeId(Long themeId) {
+        return mapper.toDtoList(repository.findAllByThemeId(themeId));
+
+    }
+
+    @Override
     public TypeResponseDTO getDetail(Long id) {
         Type type = repository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException(EntityNameConstant.TYPE, "Not Found", id.toString()));
