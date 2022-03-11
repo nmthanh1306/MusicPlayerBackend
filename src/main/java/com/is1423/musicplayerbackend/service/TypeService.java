@@ -7,6 +7,8 @@ public interface TypeService {
 
     List<TypeResponseDTO> getTypeRandom();
 
+    List<TypeResponseDTO> getTypeByThemeId(Long themeId);
+
     TypeResponseDTO getDetail(Long id);
 
 }
