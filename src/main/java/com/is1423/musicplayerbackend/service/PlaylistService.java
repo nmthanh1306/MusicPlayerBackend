@@ -8,6 +8,5 @@ public interface PlaylistService {
 
     List<PlaylistResponseDTO> getPlaylistsWasRandom();
 
-    List<PlaylistResponseDTO> getAll();
-
+    List<PlaylistResponseDTO> getAll(Long userID);
 }

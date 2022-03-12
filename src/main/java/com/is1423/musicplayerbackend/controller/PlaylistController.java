@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.is1423.musicplayerbackend.model.response.PlaylistResponseDTO;
 import com.is1423.musicplayerbackend.service.PlaylistService;
@@ -27,9 +28,9 @@ public class PlaylistController {
     }
 
     @GetMapping(value = {"", "/"})
-    public ResponseEntity<List<PlaylistResponseDTO>> getAll() {
+    public ResponseEntity<List<PlaylistResponseDTO>> getAll(@RequestParam(name = "userId", required = false) Long userId) {
         log.debug("--- execute method getAll PlayList: Start ---");
-        List<PlaylistResponseDTO> result = service.getAll();
+        List<PlaylistResponseDTO> result = service.getAll(userId);
         log.debug("--- execute method getAll PlayList: End ---");
         return ResponseEntity.ok(result);
     }

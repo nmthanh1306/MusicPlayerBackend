@@ -27,4 +27,10 @@ public class PlayList {
     @Column(name = "playlist_icon")
     private String playlistIcon;
 
+    @Column(name = "user_id")
+    private Long userId;
+
+    public PlayList(Long userId) {
+        this.userId = userId;
+    }
 }

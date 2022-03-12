@@ -70,5 +70,13 @@ public class SongController {
         return ResponseEntity.ok(result);
     }
 
+    @PutMapping(value = {"/playlist/{id}", "/playlist/{id}/"})
+    public ResponseEntity<Void> updateSongPlaylist(@PathVariable @Positive Long id, @RequestParam(name = "userId") Long userId) {
+        log.debug("--- execute method updateSongPlaylist: Start ---");
+        service.addUserPlayList(id, userId);
+        log.debug("--- execute method updateSongPlaylist: End ---");
+        return ResponseEntity.ok().build();
+    }
+
 
 }

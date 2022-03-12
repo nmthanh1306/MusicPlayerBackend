@@ -17,6 +17,8 @@ public interface SongService {
 
     SongResponseDTO updateFavouriteSong(Long songId);
 
+    void addUserPlayList(Long songId, Long userId);
+
 
 
 
