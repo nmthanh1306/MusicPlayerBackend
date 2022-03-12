@@ -22,6 +22,19 @@ public class ExceptionTranslator extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(commonReturnException(ex), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<Object> handleBadCredentialsException(
+        BadCredentialsException ex, WebRequest request) {
+        return new ResponseEntity<>(commonReturnException(ex), HttpStatus.UNAUTHORIZED);
+    }
+
+
+    @ExceptionHandler(BadRequestAlertException.class)
+    public ResponseEntity<Object> handleBadRequestAlertException(
+        BadRequestAlertException ex, WebRequest request) {
+        return new ResponseEntity<>(commonReturnException(ex), HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentTypeMismatchException ex,
         WebRequest request) {

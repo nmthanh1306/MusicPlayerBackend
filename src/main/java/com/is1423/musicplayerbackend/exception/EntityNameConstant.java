@@ -8,4 +8,5 @@ public class EntityNameConstant {
     public static final String ADVERTISEMENT = "advertisement";
     public static final String SONG = "song";
     public static final String TYPE = "type";
+    public static final String USER = "user";
 }

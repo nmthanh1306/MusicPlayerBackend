@@ -6,4 +6,6 @@ public class MessageKeyConstant {
     }
 
     public static final String NOT_FOUND = "not found";
+    public static final String USER_ALREADY_EXIST = "user already exist";
+
 }
