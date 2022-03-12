@@ -2,8 +2,11 @@ package com.is1423.musicplayerbackend.exception;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
@@ -28,6 +31,21 @@ public class ExceptionTranslator extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(commonReturnException(ex), HttpStatus.UNAUTHORIZED);
     }
 
+    @Override
+    protected ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex, HttpHeaders headers,
+        HttpStatus status, WebRequest request) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("Param", "Not pass or Not valid");
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status,
+        WebRequest request) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("RequestBody", "Not Exist or Not Valid");
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler(BadRequestAlertException.class)
     public ResponseEntity<Object> handleBadRequestAlertException(

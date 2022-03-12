@@ -8,7 +8,7 @@ import com.is1423.musicplayerbackend.exception.BadRequestAlertException;
 import com.is1423.musicplayerbackend.exception.EntityNameConstant;
 import com.is1423.musicplayerbackend.exception.MessageKeyConstant;
 import com.is1423.musicplayerbackend.mapper.UserMapper;
-import com.is1423.musicplayerbackend.model.response.UserDTO;
+import com.is1423.musicplayerbackend.model.response.UserResponseDTO;
 import com.is1423.musicplayerbackend.repository.UserRepository;
 import com.is1423.musicplayerbackend.service.UserService;
 import lombok.AllArgsConstructor;
@@ -22,23 +22,23 @@ public class UserServiceImpl implements UserService {
     private static final String DEFAULT_ROLE = "ROLE_USER";
 
     @Override
-    public UserDTO createUser(UserDTO userDTO) {
+    public UserResponseDTO createUser(UserResponseDTO userResponseDTO) {
 
-        Optional<User> user = repository.findUserByUserName(userDTO.getUserName());
+        Optional<User> user = repository.findUserByUserName(userResponseDTO.getUserName());
 
         if (user.isPresent()) {
             throw new BadRequestAlertException(EntityNameConstant.USER, MessageKeyConstant.USER_ALREADY_EXIST, user.get().getUserName());
         }
-        User newUser = mapper.toEntity(userDTO);
+        User newUser = mapper.toEntity(userResponseDTO);
         newUser.setRole(DEFAULT_ROLE);
         return mapper.toDto(repository.save(newUser));
     }
 
     @Override
-    public UserDTO login(UserDTO userDTO) {
-        User user = repository.findUserByUserNameAndPassword(userDTO.getUserName(), userDTO.getPassword())
+    public UserResponseDTO login(UserResponseDTO userResponseDTO) {
+        User user = repository.findUserByUserNameAndPassword(userResponseDTO.getUserName(), userResponseDTO.getPassword())
             .orElseThrow(() -> new BadCredentialsException(EntityNameConstant.USER, MessageKeyConstant.NOT_FOUND,
-                userDTO.getUserName() + " - " + userDTO.getPassword()));
+                userResponseDTO.getUserName() + " - " + userResponseDTO.getPassword()));
         return mapper.toDto(user);
     }
 }
