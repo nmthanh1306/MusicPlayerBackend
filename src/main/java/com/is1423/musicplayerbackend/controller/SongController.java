@@ -62,7 +62,7 @@ public class SongController {
         return ResponseEntity.ok(result);
     }
 
-    @PutMapping(value = {"/{id}", "/{id}/"})
+    @PutMapping(value = {"/favourite/{id}", "/favourite/{id}/"})
     public ResponseEntity<SongResponseDTO> updateSongFavourite(@PathVariable @Positive Long id) {
         log.debug("--- execute method updateSongFavourite: Start ---");
         SongResponseDTO result = service.updateFavouriteSong(id);
