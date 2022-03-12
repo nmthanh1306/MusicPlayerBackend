@@ -54,7 +54,7 @@ public class SongController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping(value = {"search", "/search/"})
+    @GetMapping(value = {"/search", "/search/"})
     public ResponseEntity<List<SongResponseDTO>> getSongByNameOrAuthor(@RequestParam(name = "name", required = false) String name) {
         log.debug("--- execute method getSongByNameOrAuthor: Start ---");
         List<SongResponseDTO> result = service.getSongByNameOrAuthor(name);
