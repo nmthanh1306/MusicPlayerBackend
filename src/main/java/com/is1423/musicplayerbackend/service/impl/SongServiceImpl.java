@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.is1423.musicplayerbackend.entity.PlayList;
 import com.is1423.musicplayerbackend.entity.Song;
 import com.is1423.musicplayerbackend.entity.User;
-import com.is1423.musicplayerbackend.exception.BadCredentialsException;
 import com.is1423.musicplayerbackend.exception.BadRequestAlertException;
 import com.is1423.musicplayerbackend.exception.EntityNameConstant;
 import com.is1423.musicplayerbackend.exception.MessageKeyConstant;
@@ -88,6 +87,29 @@ public class SongServiceImpl implements SongService {
             song.setPlaylistId(song.getPlaylistId() + "," + myPlayList.getPlaylistId());
         }
         repository.save(song);
+    }
+
+    @Override
+    public List<SongResponseDTO> removeSongFromPlayList(Long songId, Long userId) {
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new ResourceNotFoundException(EntityNameConstant.USER, MessageKeyConstant.NOT_FOUND, userId.toString()));
+        Optional<PlayList> playList = playlistRepository.findPlayListByUserId(user.getId());
+        Song song = repository.findById(songId)
+            .orElseThrow(() -> new ResourceNotFoundException(EntityNameConstant.SONG, MessageKeyConstant.NOT_FOUND, songId.toString()));
+
+        if (!playList.isPresent()) {
+            throw new ResourceNotFoundException(EntityNameConstant.SONG, MessageKeyConstant.NOT_FOUND_SONG_IN_PLAYLIST, songId.toString());
+        } else {
+
+            if (!song.getPlaylistId().contains(playList.get().getPlaylistId().toString())) {
+                throw new ResourceNotFoundException(EntityNameConstant.SONG, MessageKeyConstant.NOT_FOUND_SONG_IN_PLAYLIST, songId.toString());
+            }
+            song.setPlaylistId(song.getPlaylistId().replace("," + playList.get().getPlaylistId().toString(), ""));
+            repository.save(song);
+
+        }
+
+        return getByPlayListId(playList.get().getPlaylistId());
     }
 
 }

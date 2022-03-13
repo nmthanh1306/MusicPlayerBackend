@@ -19,6 +19,8 @@ public interface SongService {
 
     void addUserPlayList(Long songId, Long userId);
 
+    List<SongResponseDTO> removeSongFromPlayList(Long songId, Long userId);
+
 
 
 

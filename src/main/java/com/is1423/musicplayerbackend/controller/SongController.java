@@ -3,6 +3,7 @@ package com.is1423.musicplayerbackend.controller;
 import java.util.List;
 import javax.validation.constraints.Positive;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -76,6 +77,15 @@ public class SongController {
         service.addUserPlayList(id, userId);
         log.debug("--- execute method updateSongPlaylist: End ---");
         return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping(value = {"/playlist/{id}", "/playlist/{id}/"})
+    public ResponseEntity<List<SongResponseDTO>> removeSongPlaylist(@PathVariable @Positive Long id,
+        @RequestParam(name = "userId") Long userId) {
+        log.debug("--- execute method removeSongPlaylist: Start ---");
+        List<SongResponseDTO> result = service.removeSongFromPlayList(id, userId);
+        log.debug("--- execute method removeSongPlaylist: End ---");
+        return ResponseEntity.ok(result);
     }
 
 
