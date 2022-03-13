@@ -15,11 +15,13 @@ public interface SongService {
 
     List<SongResponseDTO> getSongByNameOrAuthor(String name);
 
-    SongResponseDTO updateFavouriteSong(Long songId);
+    void updateFavouriteSong(Long songId, Long userId);
 
     void addUserPlayList(Long songId, Long userId);
 
     List<SongResponseDTO> removeSongFromPlayList(Long songId, Long userId);
+
+    List<SongResponseDTO> getListSongFavourite(Long userId);
 
 
 

@@ -64,12 +64,21 @@ public class SongController {
     }
 
     @PutMapping(value = {"/favourite/{id}", "/favourite/{id}/"})
-    public ResponseEntity<SongResponseDTO> updateSongFavourite(@PathVariable @Positive Long id) {
+    public ResponseEntity<Void> updateSongFavourite(@PathVariable @Positive Long id, @RequestParam(name = "userId") Long userId) {
         log.debug("--- execute method updateSongFavourite: Start ---");
-        SongResponseDTO result = service.updateFavouriteSong(id);
+        service.updateFavouriteSong(id, userId);
         log.debug("--- execute method updateSongFavourite: End ---");
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(value = {"/favourite/user", "/favourite/user/"})
+    public ResponseEntity<List<SongResponseDTO>> getSongFavourite(@RequestParam(name = "userId") Long userId) {
+        log.debug("--- execute method getSongFavourite: Start ---");
+        List<SongResponseDTO> result = service.getListSongFavourite(userId);
+        log.debug("--- execute method getSongFavourite: End ---");
         return ResponseEntity.ok(result);
     }
+
 
     @PutMapping(value = {"/playlist/{id}", "/playlist/{id}/"})
     public ResponseEntity<Void> updateSongPlaylist(@PathVariable @Positive Long id, @RequestParam(name = "userId") Long userId) {
