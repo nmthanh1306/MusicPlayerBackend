@@ -10,4 +10,6 @@ public interface SongFavouriteRepository extends JpaRepository<MyFavouriteSong, 
     List<MyFavouriteSong> findAllByUserId(Long userId);
 
     Optional<MyFavouriteSong> findByUserIdAndSongId(Long userId, Long songId);
+
+    List<MyFavouriteSong> findAllBySongIdInAndUserId(List<Long> songIds, Long userId);
 }

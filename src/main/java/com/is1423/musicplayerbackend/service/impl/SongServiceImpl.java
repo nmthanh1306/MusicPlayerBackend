@@ -1,15 +1,18 @@
 package com.is1423.musicplayerbackend.service.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import com.is1423.musicplayerbackend.entity.MyFavouriteSong;
 import com.is1423.musicplayerbackend.entity.PlayList;
 import com.is1423.musicplayerbackend.entity.Song;
-import com.is1423.musicplayerbackend.entity.MyFavouriteSong;
 import com.is1423.musicplayerbackend.entity.User;
 import com.is1423.musicplayerbackend.exception.BadRequestAlertException;
 import com.is1423.musicplayerbackend.exception.EntityNameConstant;
@@ -37,31 +40,40 @@ public class SongServiceImpl implements SongService {
     private static final int DEFAULT_INCREASE_FAVOURITE = 1;
 
     @Override
-    public List<SongResponseDTO> getListFavouriteSong() {
-        return mapper.toDtoList(repository.get5FavoriteSong());
+    public List<SongResponseDTO> getListFavouriteSong(Long userId) {
+        List<SongResponseDTO> listSong = mapper.toDtoList(repository.get5FavoriteSong());
+        return updateSongIsFavourite(listSong, userId);
     }
 
     @Override
-    public List<SongResponseDTO> getByPlayListId(Long playlistId) {
-        return mapper.toDtoList(repository.getByPlayListId(playlistId));
+    public List<SongResponseDTO> getByPlayListId(Long playlistId, Long userId) {
+        List<SongResponseDTO> listSong = mapper.toDtoList(repository.getByPlayListId(playlistId));
+        return updateSongIsFavourite(listSong, userId);
     }
 
     @Override
-    public List<SongResponseDTO> getByTypeId(Long typeId) {
-        return mapper.toDtoList(repository.getByTypeId(typeId));
+    public List<SongResponseDTO> getByTypeId(Long typeId, Long userId) {
+        List<SongResponseDTO> listSong = mapper.toDtoList(repository.getByTypeId(typeId));
+        return updateSongIsFavourite(listSong, userId);
     }
 
     @Override
-    public List<SongResponseDTO> getByAlbumId(Long albumId) {
-        return mapper.toDtoList(repository.getByAlbumId(albumId));
+    public List<SongResponseDTO> getByAlbumId(Long albumId, Long userId) {
+        List<SongResponseDTO> listSong = mapper.toDtoList(repository.getByAlbumId(albumId));
+        return updateSongIsFavourite(listSong, userId);
     }
 
     @Override
-    public List<SongResponseDTO> getSongByNameOrAuthor(String text) {
+    public List<SongResponseDTO> getSongByNameOrAuthor(String text, Long userId) {
+        List<SongResponseDTO> listSong = new ArrayList<>();
         if (Objects.isNull(text) || text.length() == 0) {
-            return mapper.toDtoList(repository.findAll());
+            listSong = mapper.toDtoList(repository.findAll());
+            return updateSongIsFavourite(listSong, userId);
+        } else {
+            listSong = mapper.toDtoList(repository.findBySongNameContains(text));
         }
-        return mapper.toDtoList(repository.findBySongNameContains(text));
+        return updateSongIsFavourite(listSong, userId);
+
     }
 
     @Override
@@ -129,7 +141,7 @@ public class SongServiceImpl implements SongService {
 
         }
 
-        return getByPlayListId(playList.get().getPlaylistId());
+        return getByPlayListId(playList.get().getPlaylistId(), user.getId());
     }
 
     @Override
@@ -145,5 +157,31 @@ public class SongServiceImpl implements SongService {
             return mapper.toDtoList(repository.findAllById(songIds));
         }
     }
+
+    /**
+     * @param listSong
+     * @param userId
+     * @return Is song user favourite
+     */
+    private List<SongResponseDTO> updateSongIsFavourite(List<SongResponseDTO> listSong, Long userId) {
+        if (Objects.isNull(userId)) {
+            return listSong;
+        }
+
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new ResourceNotFoundException(EntityNameConstant.USER, MessageKeyConstant.NOT_FOUND, userId.toString()));
+        List<Long> songIds = listSong.stream().map(SongResponseDTO::getSongId).collect(Collectors.toList());
+        List<MyFavouriteSong> myFavouriteSongList = songFavouriteRepository.findAllBySongIdInAndUserId(songIds, user.getId());
+        Map<Long, MyFavouriteSong> songMap = Objects.nonNull(myFavouriteSongList) ? myFavouriteSongList.stream()
+            .collect(Collectors.toMap(MyFavouriteSong::getSongId, Function.identity())) : new HashMap<>();
+
+        for (SongResponseDTO song : listSong) {
+            if (Objects.nonNull(songMap.get(song.getSongId()))) {
+                song.setUserFavourite(true);
+            }
+        }
+        return listSong;
+    }
+
 
 }

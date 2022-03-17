@@ -22,4 +22,6 @@ public class SongResponseDTO {
     private String linkSong;
 
     private int favourite;
+
+    private boolean isUserFavourite = false;
 }

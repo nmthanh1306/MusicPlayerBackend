@@ -5,15 +5,15 @@ import com.is1423.musicplayerbackend.model.response.SongResponseDTO;
 
 public interface SongService {
 
-    List<SongResponseDTO> getListFavouriteSong();
+    List<SongResponseDTO> getListFavouriteSong(Long userId);
 
-    List<SongResponseDTO> getByPlayListId(Long playlistId);
+    List<SongResponseDTO> getByPlayListId(Long playlistId, Long userId);
 
-    List<SongResponseDTO> getByTypeId(Long typeId);
+    List<SongResponseDTO> getByTypeId(Long typeId, Long userId);
 
-    List<SongResponseDTO> getByAlbumId(Long albumId);
+    List<SongResponseDTO> getByAlbumId(Long albumId, Long userId);
 
-    List<SongResponseDTO> getSongByNameOrAuthor(String name);
+    List<SongResponseDTO> getSongByNameOrAuthor(String name, Long userId);
 
     void updateFavouriteSong(Long songId, Long userId);
 

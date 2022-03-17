@@ -24,41 +24,45 @@ public class SongController {
     private final SongService service;
 
     @GetMapping(value = {"/favourite", "/favourite/"})
-    public ResponseEntity<List<SongResponseDTO>> getTop5FavoriteSong() {
+    public ResponseEntity<List<SongResponseDTO>> getTop5FavoriteSong(@RequestParam(name = "userId", required = false) Long userId) {
         log.debug("--- execute method getTop5FavoriteSong: Start ---");
-        List<SongResponseDTO> result = service.getListFavouriteSong();
+        List<SongResponseDTO> result = service.getListFavouriteSong(userId);
         log.debug("--- execute method getTop5FavoriteSong: End ---");
         return ResponseEntity.ok(result);
     }
 
     @GetMapping(value = {"/playlist/{id}", "/playlist/{id}/"})
-    public ResponseEntity<List<SongResponseDTO>> getSongByPlayList(@PathVariable @Positive Long id) {
+    public ResponseEntity<List<SongResponseDTO>> getSongByPlayList(@PathVariable @Positive Long id,
+        @RequestParam(name = "userId", required = false) Long userId) {
         log.debug("--- execute method getSongByPlayList: Start ---");
-        List<SongResponseDTO> result = service.getByPlayListId(id);
+        List<SongResponseDTO> result = service.getByPlayListId(id, userId);
         log.debug("--- execute method getSongByPlayList: End ---");
         return ResponseEntity.ok(result);
     }
 
     @GetMapping(value = {"/type/{id}", "/type/{id}/"})
-    public ResponseEntity<List<SongResponseDTO>> getSongByType(@PathVariable @Positive Long id) {
+    public ResponseEntity<List<SongResponseDTO>> getSongByType(@PathVariable @Positive Long id,
+        @RequestParam(name = "userId", required = false) Long userId) {
         log.debug("--- execute method getSongByType: Start ---");
-        List<SongResponseDTO> result = service.getByTypeId(id);
+        List<SongResponseDTO> result = service.getByTypeId(id, userId);
         log.debug("--- execute method getSongByType: End ---");
         return ResponseEntity.ok(result);
     }
 
     @GetMapping(value = {"/album/{id}", "/album/{id}/"})
-    public ResponseEntity<List<SongResponseDTO>> getSongByAlbum(@PathVariable @Positive Long id) {
+    public ResponseEntity<List<SongResponseDTO>> getSongByAlbum(@PathVariable @Positive Long id,
+        @RequestParam(name = "userId", required = false) Long userId) {
         log.debug("--- execute method getSongByAlbum: Start ---");
-        List<SongResponseDTO> result = service.getByAlbumId(id);
+        List<SongResponseDTO> result = service.getByAlbumId(id, userId);
         log.debug("--- execute method getSongByAlbum: End ---");
         return ResponseEntity.ok(result);
     }
 
     @GetMapping(value = {"/search", "/search/"})
-    public ResponseEntity<List<SongResponseDTO>> getSongByNameOrAuthor(@RequestParam(name = "name", required = false) String name) {
+    public ResponseEntity<List<SongResponseDTO>> getSongByNameOrAuthor(
+        @RequestParam(name = "name", required = false) String name,  @RequestParam(name = "userId", required = false) Long userId) {
         log.debug("--- execute method getSongByNameOrAuthor: Start ---");
-        List<SongResponseDTO> result = service.getSongByNameOrAuthor(name);
+        List<SongResponseDTO> result = service.getSongByNameOrAuthor(name, userId);
         log.debug("--- execute method getSongByNameOrAuthor: End ---");
         return ResponseEntity.ok(result);
     }
