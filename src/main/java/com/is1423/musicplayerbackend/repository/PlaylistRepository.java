@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface PlaylistRepository extends JpaRepository<PlayList, Long> {
 
-    @Query(value = "select distinct * from  where user_id = 1 order by rand(CURRENT_DATE) limit 3", nativeQuery = true)
+    @Query(value = "select distinct * from Playlist where user_id = 1 order by rand(CURRENT_DATE) limit 3", nativeQuery = true)
     List<PlayList> random3PlaylistPerOneDay();
 
 
