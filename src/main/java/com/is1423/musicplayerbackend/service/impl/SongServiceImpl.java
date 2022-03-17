@@ -154,7 +154,9 @@ public class SongServiceImpl implements SongService {
             return new ArrayList<>();
         } else {
             List<Long> songIds = listSong.stream().map(MyFavouriteSong::getSongId).collect(Collectors.toList());
-            return mapper.toDtoList(repository.findAllById(songIds));
+            List<SongResponseDTO> listSongFavourite = mapper.toDtoList(repository.findAllById(songIds));
+            listSongFavourite.forEach(song -> song.setUserFavourite(true));
+            return listSongFavourite;
         }
     }
 
