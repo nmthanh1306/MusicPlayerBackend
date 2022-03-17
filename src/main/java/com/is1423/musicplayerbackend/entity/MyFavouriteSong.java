@@ -11,11 +11,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "song_favourite")
+@Table(name = "my_favourite_song")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SongFavourite {
+public class MyFavouriteSong {
 
     @Id
     @Column(name = "id")
@@ -29,7 +29,7 @@ public class SongFavourite {
     private Long songId;
 
 
-    public SongFavourite(Long userId, Long songId) {
+    public MyFavouriteSong(Long userId, Long songId) {
         this.userId = userId;
         this.songId = songId;
     }

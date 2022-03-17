@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import com.is1423.musicplayerbackend.entity.PlayList;
 import com.is1423.musicplayerbackend.entity.Song;
-import com.is1423.musicplayerbackend.entity.SongFavourite;
+import com.is1423.musicplayerbackend.entity.MyFavouriteSong;
 import com.is1423.musicplayerbackend.entity.User;
 import com.is1423.musicplayerbackend.exception.BadRequestAlertException;
 import com.is1423.musicplayerbackend.exception.EntityNameConstant;
@@ -70,7 +70,7 @@ public class SongServiceImpl implements SongService {
             .orElseThrow(() -> new ResourceNotFoundException(EntityNameConstant.USER, MessageKeyConstant.NOT_FOUND, userId.toString()));
         Song song = repository.findById(songId)
             .orElseThrow(() -> new ResourceNotFoundException(EntityNameConstant.SONG, MessageKeyConstant.NOT_FOUND, songId.toString()));
-        Optional<SongFavourite> songFavourite = songFavouriteRepository.findByUserIdAndSongId(user.getId(), song.getSongId());
+        Optional<MyFavouriteSong> songFavourite = songFavouriteRepository.findByUserIdAndSongId(user.getId(), song.getSongId());
 
         // if song already exist => remove song favourite
         // else add song favourite
@@ -78,7 +78,7 @@ public class SongServiceImpl implements SongService {
             songFavouriteRepository.delete(songFavourite.get());
             song.setFavourite(song.getFavourite() - DEFAULT_INCREASE_FAVOURITE);
         } else {
-            SongFavourite newSongFavourite = new SongFavourite(user.getId(), song.getSongId());
+            MyFavouriteSong newSongFavourite = new MyFavouriteSong(user.getId(), song.getSongId());
             songFavouriteRepository.save(newSongFavourite);
             song.setFavourite(song.getFavourite() + DEFAULT_INCREASE_FAVOURITE);
         }
@@ -136,12 +136,12 @@ public class SongServiceImpl implements SongService {
     public List<SongResponseDTO> getListSongFavourite(Long userId) {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new ResourceNotFoundException(EntityNameConstant.USER, MessageKeyConstant.NOT_FOUND, userId.toString()));
-        List<SongFavourite> listSong = songFavouriteRepository.findAllByUserId(user.getId());
+        List<MyFavouriteSong> listSong = songFavouriteRepository.findAllByUserId(user.getId());
 
         if (CollectionUtils.isEmpty(listSong)) {
             return new ArrayList<>();
         } else {
-            List<Long> songIds = listSong.stream().map(SongFavourite::getSongId).collect(Collectors.toList());
+            List<Long> songIds = listSong.stream().map(MyFavouriteSong::getSongId).collect(Collectors.toList());
             return mapper.toDtoList(repository.findAllById(songIds));
         }
     }
