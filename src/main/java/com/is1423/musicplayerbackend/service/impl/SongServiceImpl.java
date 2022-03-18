@@ -77,7 +77,8 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public void updateFavouriteSong(Long songId, Long userId) {
+    public Map<String, Boolean> updateFavouriteSong(Long songId, Long userId) {
+        Map<String, Boolean> result = new HashMap<>();
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new ResourceNotFoundException(EntityNameConstant.USER, MessageKeyConstant.NOT_FOUND, userId.toString()));
         Song song = repository.findById(songId)
@@ -87,14 +88,17 @@ public class SongServiceImpl implements SongService {
         // if song already exist => remove song favourite
         // else add song favourite
         if (songFavourite.isPresent()) {
+            result.put("result", Boolean.TRUE);
             songFavouriteRepository.delete(songFavourite.get());
             song.setFavourite(song.getFavourite() - DEFAULT_INCREASE_FAVOURITE);
         } else {
+            result.put("result", Boolean.FALSE);
             MyFavouriteSong newSongFavourite = new MyFavouriteSong(user.getId(), song.getSongId());
             songFavouriteRepository.save(newSongFavourite);
             song.setFavourite(song.getFavourite() + DEFAULT_INCREASE_FAVOURITE);
         }
         repository.save(song);
+        return result;
     }
 
 

@@ -1,6 +1,7 @@
 package com.is1423.musicplayerbackend.controller;
 
 import java.util.List;
+import java.util.Map;
 import javax.validation.constraints.Positive;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -68,11 +69,11 @@ public class SongController {
     }
 
     @PutMapping(value = {"/favourite/{id}", "/favourite/{id}/"})
-    public ResponseEntity<Void> updateSongFavourite(@PathVariable @Positive Long id, @RequestParam(name = "userId") Long userId) {
+    public ResponseEntity<Map<String, Boolean>> updateSongFavourite(@PathVariable @Positive Long id, @RequestParam(name = "userId") Long userId) {
         log.debug("--- execute method updateSongFavourite: Start ---");
-        service.updateFavouriteSong(id, userId);
+         Map<String, Boolean> result = service.updateFavouriteSong(id, userId);
         log.debug("--- execute method updateSongFavourite: End ---");
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping(value = {"/favourite/user", "/favourite/user/"})

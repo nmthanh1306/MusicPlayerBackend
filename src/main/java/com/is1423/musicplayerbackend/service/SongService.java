@@ -1,6 +1,7 @@
 package com.is1423.musicplayerbackend.service;
 
 import java.util.List;
+import java.util.Map;
 import com.is1423.musicplayerbackend.model.response.SongResponseDTO;
 
 public interface SongService {
@@ -15,7 +16,7 @@ public interface SongService {
 
     List<SongResponseDTO> getSongByNameOrAuthor(String name, Long userId);
 
-    void updateFavouriteSong(Long songId, Long userId);
+    Map<String, Boolean> updateFavouriteSong(Long songId, Long userId);
 
     void addUserPlayList(Long songId, Long userId);
 
