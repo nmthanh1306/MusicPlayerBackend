@@ -88,11 +88,11 @@ public class SongServiceImpl implements SongService {
         // if song already exist => remove song favourite
         // else add song favourite
         if (songFavourite.isPresent()) {
-            result.put("result", Boolean.TRUE);
+            result.put("result", Boolean.FALSE);
             songFavouriteRepository.delete(songFavourite.get());
             song.setFavourite(song.getFavourite() - DEFAULT_INCREASE_FAVOURITE);
         } else {
-            result.put("result", Boolean.FALSE);
+            result.put("result", Boolean.TRUE);
             MyFavouriteSong newSongFavourite = new MyFavouriteSong(user.getId(), song.getSongId());
             songFavouriteRepository.save(newSongFavourite);
             song.setFavourite(song.getFavourite() + DEFAULT_INCREASE_FAVOURITE);
