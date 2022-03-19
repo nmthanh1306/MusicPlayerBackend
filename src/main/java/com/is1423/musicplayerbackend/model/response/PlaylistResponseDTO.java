@@ -1,6 +1,7 @@
 package com.is1423.musicplayerbackend.model.response;
 
 import java.io.Serializable;
+import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -10,6 +11,7 @@ public class PlaylistResponseDTO implements Serializable {
 
     private Long playlistId;
 
+    @NotBlank
     private String playListName;
 
     private String playlistImage;

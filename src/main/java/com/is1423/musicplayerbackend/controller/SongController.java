@@ -86,21 +86,17 @@ public class SongController {
 
 
     @PutMapping(value = {"/playlist/{id}", "/playlist/{id}/"})
-    public ResponseEntity<Void> updateSongPlaylist(@PathVariable @Positive Long id, @RequestParam(name = "userId") Long userId) {
-        log.debug("--- execute method updateSongPlaylist: Start ---");
-        service.addUserPlayList(id, userId);
-        log.debug("--- execute method updateSongPlaylist: End ---");
-        return ResponseEntity.ok().build();
-    }
-
-    @DeleteMapping(value = {"/playlist/{id}", "/playlist/{id}/"})
-    public ResponseEntity<List<SongResponseDTO>> removeSongPlaylist(@PathVariable @Positive Long id,
+    public ResponseEntity<Map<String, Boolean>> updateSongPlaylist(
+        @PathVariable @Positive Long id,
+        @RequestParam(name = "playListId") @Positive Long playListId,
         @RequestParam(name = "userId") Long userId) {
-        log.debug("--- execute method removeSongPlaylist: Start ---");
-        List<SongResponseDTO> result = service.removeSongFromPlayList(id, userId);
-        log.debug("--- execute method removeSongPlaylist: End ---");
+        log.debug("--- execute method updateSongPlaylist: Start ---");
+        Map<String, Boolean> result = service.updateUserPlayList(id, playListId, userId);
+        log.debug("--- execute method updateSongPlaylist: End ---");
         return ResponseEntity.ok(result);
     }
+
+
 
 
 }

@@ -18,9 +18,7 @@ public interface SongService {
 
     Map<String, Boolean> updateFavouriteSong(Long songId, Long userId);
 
-    void addUserPlayList(Long songId, Long userId);
-
-    List<SongResponseDTO> removeSongFromPlayList(Long songId, Long userId);
+    Map<String, Boolean> updateUserPlayList(Long songId, Long playListId, Long userId);
 
     List<SongResponseDTO> getListSongFavourite(Long userId);
 

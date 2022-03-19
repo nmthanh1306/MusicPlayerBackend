@@ -12,8 +12,11 @@ public interface PlaylistRepository extends JpaRepository<PlayList, Long> {
     @Query(value = "select distinct * from Playlist where user_id = 1 order by rand(CURRENT_DATE) limit 3", nativeQuery = true)
     List<PlayList> random3PlaylistPerOneDay();
 
-
-    Optional<PlayList> findPlayListByUserId(Long userId);
+    Optional<PlayList> findPlayListByUserIdAndPlaylistId(Long userId, Long playListId);
 
     List<PlayList> findAllByUserId(Long userId);
+
+    Optional<PlayList> findPlayListByPlayListNameAndUserId(String playListName, Long userId);
+
+
 }
