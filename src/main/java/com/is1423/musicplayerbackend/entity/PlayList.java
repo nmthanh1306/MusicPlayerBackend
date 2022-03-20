@@ -19,7 +19,7 @@ public class PlayList {
     private Long playlistId;
 
     @Column(name = "playlist_name")
-    private String playListName;
+    private String playlistName;
 
     @Column(name = "playlist_image")
     private String playlistImage;
