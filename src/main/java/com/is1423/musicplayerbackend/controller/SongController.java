@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,7 +62,7 @@ public class SongController {
 
     @GetMapping(value = {"/search", "/search/"})
     public ResponseEntity<List<SongResponseDTO>> getSongByNameOrAuthor(
-        @RequestParam(name = "name", required = false) String name,  @RequestParam(name = "userId", required = false) Long userId) {
+        @RequestParam(name = "name", required = false) String name, @RequestParam(name = "userId", required = false) Long userId) {
         log.debug("--- execute method getSongByNameOrAuthor: Start ---");
         List<SongResponseDTO> result = service.getSongByNameOrAuthor(name, userId);
         log.debug("--- execute method getSongByNameOrAuthor: End ---");
@@ -69,9 +70,10 @@ public class SongController {
     }
 
     @PutMapping(value = {"/favourite/{id}", "/favourite/{id}/"})
-    public ResponseEntity<Map<String, Boolean>> updateSongFavourite(@PathVariable @Positive Long id, @RequestParam(name = "userId") Long userId) {
+    public ResponseEntity<Map<String, Boolean>> updateSongFavourite(@PathVariable @Positive Long id,
+        @RequestParam(name = "userId") Long userId) {
         log.debug("--- execute method updateSongFavourite: Start ---");
-         Map<String, Boolean> result = service.updateFavouriteSong(id, userId);
+        Map<String, Boolean> result = service.updateFavouriteSong(id, userId);
         log.debug("--- execute method updateSongFavourite: End ---");
         return ResponseEntity.ok(result);
     }
@@ -85,18 +87,27 @@ public class SongController {
     }
 
 
-    @PutMapping(value = {"/playlist/{id}", "/playlist/{id}/"})
-    public ResponseEntity<Map<String, Boolean>> updateSongPlaylist(
+    @PostMapping(value = {"/playlist/{id}", "/playlist/{id}/"})
+    public ResponseEntity<Void> addSongPlaylist(
+        @PathVariable @Positive Long id,
+        @RequestParam(name = "playListId") @Positive Long playListId,
+        @RequestParam(name = "userId") Long userId) {
+        log.debug("--- execute method addSongPlaylist: Start ---");
+        service.addSongPlaylist(id, playListId, userId);
+        log.debug("--- execute method addSongPlaylist: End ---");
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping(value = {"/playlist/{id}", "/playlist/{id}/"})
+    public ResponseEntity<Void> removeSongPlaylist(
         @PathVariable @Positive Long id,
         @RequestParam(name = "playListId") @Positive Long playListId,
         @RequestParam(name = "userId") Long userId) {
         log.debug("--- execute method updateSongPlaylist: Start ---");
-        Map<String, Boolean> result = service.updateUserPlayList(id, playListId, userId);
+        service.removeSongPlaylist(id, playListId, userId);
         log.debug("--- execute method updateSongPlaylist: End ---");
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok().build();
     }
-
-
 
 
 }

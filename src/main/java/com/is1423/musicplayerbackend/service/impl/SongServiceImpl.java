@@ -14,6 +14,7 @@ import com.is1423.musicplayerbackend.entity.MyFavouriteSong;
 import com.is1423.musicplayerbackend.entity.PlayList;
 import com.is1423.musicplayerbackend.entity.Song;
 import com.is1423.musicplayerbackend.entity.User;
+import com.is1423.musicplayerbackend.exception.BadRequestAlertException;
 import com.is1423.musicplayerbackend.exception.EntityNameConstant;
 import com.is1423.musicplayerbackend.exception.MessageKeyConstant;
 import com.is1423.musicplayerbackend.exception.ResourceNotFoundException;
@@ -122,10 +123,8 @@ public class SongServiceImpl implements SongService {
         return result;
     }
 
-
     @Override
-    public Map<String, Boolean> updateUserPlayList(Long songId, Long playListId, Long userId) {
-        Map<String, Boolean> result = new HashMap<>();
+    public void addSongPlaylist(Long songId, Long playListId, Long userId) {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new ResourceNotFoundException(EntityNameConstant.USER, MessageKeyConstant.NOT_FOUND, userId.toString()));
         PlayList playList = playlistRepository.findPlayListByUserIdAndPlaylistId(user.getId(), playListId)
@@ -134,14 +133,33 @@ public class SongServiceImpl implements SongService {
             .orElseThrow(() -> new ResourceNotFoundException(EntityNameConstant.SONG, MessageKeyConstant.NOT_FOUND, songId.toString()));
 
         if (!song.getPlaylistId().contains(playList.getPlaylistId().toString())) {
-            result.put(RESULT, Boolean.TRUE);
             song.setPlaylistId(song.getPlaylistId() + "," + playList.getPlaylistId());
+            repository.save(song);
         } else {
-            result.put(RESULT, Boolean.FALSE);
-            song.setPlaylistId(song.getPlaylistId().replace("," + playList.getPlaylistId().toString(), ""));
+            throw new BadRequestAlertException(EntityNameConstant.PLAYLIST, MessageKeyConstant.SONG_ALREADY_EXIST_IN_YOUR_PLAYLIST,
+                song.getSongId().toString());
         }
-        repository.save(song);
-        return result;
+
+    }
+
+
+    @Override
+    public void removeSongPlaylist(Long songId, Long playListId, Long userId) {
+        User user = userRepository.findById(userId)
+            .orElseThrow(() -> new ResourceNotFoundException(EntityNameConstant.USER, MessageKeyConstant.NOT_FOUND, userId.toString()));
+        PlayList playList = playlistRepository.findPlayListByUserIdAndPlaylistId(user.getId(), playListId)
+            .orElseThrow(() -> new ResourceNotFoundException(EntityNameConstant.PLAYLIST, MessageKeyConstant.NOT_FOUND, playListId.toString()));
+        Song song = repository.findById(songId)
+            .orElseThrow(() -> new ResourceNotFoundException(EntityNameConstant.SONG, MessageKeyConstant.NOT_FOUND, songId.toString()));
+
+        if (song.getPlaylistId().contains(playList.getPlaylistId().toString())) {
+            song.setPlaylistId(song.getPlaylistId().replace("," + playList.getPlaylistId().toString(), ""));
+            repository.save(song);
+        } else {
+            throw new BadRequestAlertException(EntityNameConstant.SONG, MessageKeyConstant.SONG_NOT_EXIST_IN_YOUR_PLAYLIST,
+                song.getSongId().toString());
+        }
+
     }
 
     @Override

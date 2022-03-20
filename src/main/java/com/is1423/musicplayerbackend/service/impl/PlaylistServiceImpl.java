@@ -51,7 +51,7 @@ public class PlaylistServiceImpl implements PlaylistService {
         User user = userRepository.findById(userId)
             .orElseThrow(() -> new ResourceNotFoundException(EntityNameConstant.USER, MessageKeyConstant.NOT_FOUND, userId.toString()));
 
-        repository.findPlayListByPlayListNameAndUserId(playlistResponseDTO.getPlayListName(), user.getId()).ifPresent(
+        repository.findPlayListByPlaylistNameAndUserId(playlistResponseDTO.getPlaylistName(), user.getId()).ifPresent(
             playList -> {
                 throw new BadRequestAlertException(EntityNameConstant.PLAYLIST, MessageKeyConstant.PLAYLIST_ALREADY_EXIST,
                     playList.getPlaylistImage());

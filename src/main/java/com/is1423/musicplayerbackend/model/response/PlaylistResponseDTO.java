@@ -12,7 +12,7 @@ public class PlaylistResponseDTO implements Serializable {
     private Long playlistId;
 
     @NotBlank
-    private String playListName;
+    private String playlistName;
 
     private String playlistImage;
 
